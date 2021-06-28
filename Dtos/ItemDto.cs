@@ -1,7 +1,8 @@
 using System;
-namespace Catalog.Entities
+
+namespace Catalog.Dtos
 {
-    public class Item
+    public class ItemDto
     {
         public Guid Id { get; init; }
 
@@ -10,6 +11,5 @@ namespace Catalog.Entities
         public decimal Price { get; init; }
 
         public DateTimeOffset CreatedDate { get; set; }
-
     }
 }
