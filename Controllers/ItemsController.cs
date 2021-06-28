@@ -4,6 +4,7 @@ namespace Catalog.Controllers
     using System;
     using System.Collections.Generic;
     using Catalog.Dtos;
+    using Catalog.Entities;
     using Catalog.Repositories;
     using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,21 @@ namespace Catalog.Controllers
                 return NotFound();
             }
             return Ok(item.AsDto());
+        }
+
+        [HttpPost]
+        public ActionResult<ItemDto> CreateItem([FromForm] CreateItemDto itemDto)
+        {
+            Item item = new Item()
+            {
+                Id = Guid.NewGuid(),
+                Name = itemDto.Name,
+                Price = itemDto.Price,
+                CreatedDate = DateTimeOffset.UtcNow,
+            };
+
+            repository.CreateItem(item);
+            return CreatedAtAction(nameof(GetItem), new { id = item.Id }, item.AsDto());
         }
     }
 
