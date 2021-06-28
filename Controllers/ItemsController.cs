@@ -61,16 +61,14 @@ namespace Catalog.Controllers
         {
             Item existingItem = repository.GetItem(id);
 
-            if (existingItem is null)
-            {
-                return NotFound();
-            }
+            if (existingItem is null) return NotFound();
 
 
-            
-            Item updateItem =  new Item()
+
+
+            Item updateItem = new Item()
             {
-                Id =  existingItem.Id,
+                Id = existingItem.Id,
                 Name = itemDto.Name,
                 Price = itemDto.Price,
                 CreatedDate = existingItem.CreatedDate,
@@ -80,14 +78,12 @@ namespace Catalog.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteItem(Guid id)
         {
             Item existingItem = repository.GetItem(id);
-            if (existingItem is null)
-            {
-                return NotFound();
-            }
+            if (existingItem is null) return NotFound();
+
 
             repository.DeleteItem(existingItem.Id);
             return NoContent();
