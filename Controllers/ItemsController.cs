@@ -67,13 +67,16 @@ namespace Catalog.Controllers
             }
 
 
-            // Item updateItem = existingItem with
-            // {
-            //     Name = itemDto.Name,
-            //     Price = itemDto.Price
-            // };
+            
+            Item updateItem =  new Item()
+            {
+                Id =  existingItem.Id,
+                Name = itemDto.Name,
+                Price = itemDto.Price,
+                CreatedDate = existingItem.CreatedDate,
+            };
 
-            // repository.UpdateItem(updateItem);
+            repository.UpdateItem(updateItem);
             return NoContent();
         }
 
