@@ -8,14 +8,14 @@ namespace Catalog.Controllers
     using Catalog.Repositories;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        private readonly IInMemItemsRepository repository;
+        private readonly IItemsRepository repository;
 
 
-        public ItemsController(IInMemItemsRepository repository) => this.repository = repository;
+        public ItemsController(IItemsRepository repository) => this.repository = repository;
 
         [HttpGet]
         public ActionResult<IEnumerable<ItemDto>> GetItems()
