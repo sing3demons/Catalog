@@ -60,20 +60,33 @@ namespace Catalog.Controllers
         public ActionResult UpdateItem(Guid id, [FromForm] UpdateItemDto itemDto)
         {
             Item existingItem = repository.GetItem(id);
-            Console.WriteLine(existingItem.Name);
+
             if (existingItem is null)
             {
                 return NotFound();
             }
 
 
-            Item updateItem = existingItem with
-            {
-                Name = itemDto.Name,
-                Price = itemDto.Price
-            };
+            // Item updateItem = existingItem with
+            // {
+            //     Name = itemDto.Name,
+            //     Price = itemDto.Price
+            // };
 
-            repository.UpdateItem(updateItem);
+            // repository.UpdateItem(updateItem);
+            return NoContent();
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteItem(Guid id)
+        {
+            Item existingItem = repository.GetItem(id);
+            if (existingItem is null)
+            {
+                return NotFound();
+            }
+
+            repository.DeleteItem(existingItem.Id);
             return NoContent();
         }
     }
