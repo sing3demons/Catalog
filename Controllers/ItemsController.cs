@@ -7,6 +7,7 @@ namespace Catalog.Controllers
     using Catalog.Dtos;
     using Catalog.Entities;
     using Catalog.Repositories;
+    using Catalog.Settings;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/v1/[controller]")]

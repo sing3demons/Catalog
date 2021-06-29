@@ -25,7 +25,10 @@ namespace Catalog.Repositories
         public async Task<Item> GetItemAsync(Guid id)
         {
             var filter = filterBuilder.Eq(item => item.Id, id);
-            return await itemsCollection.Find(filter).SingleOrDefaultAsync();
+            // var document = await itemsCollection.Find(filter).FirstAsync();
+            var document = await itemsCollection.Find(filter).SingleOrDefaultAsync();
+            Console.WriteLine(document);
+            return document;
         }
         public async Task CreateItemAsync(Item item)
         {

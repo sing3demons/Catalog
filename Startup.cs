@@ -28,19 +28,23 @@ namespace Catalog
         {
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
+            var mongoDbSettings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSetting>();
 
             services.AddSingleton<IMongoClient>(serviceProvider =>
             {
-                var settings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSetting>();
-                return new MongoClient(settings.ConnectionString);
+                return new MongoClient(mongoDbSettings.ConnectionString);
             });
+
             services.AddSingleton<IItemsRepository, MongoDbItemRepository>();
             // services.AddSingleton<IInMemItemsRepository,InMemItemsRepository>();
+
             services.AddControllers(option => option.SuppressAsyncSuffixInActionNames = false);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Catalog", Version = "v1" });
             });
+
+            // services.AddHealthChecks().AddMongoDb(mongoDbSettings.ConnectionString);
         }
 
         private object MongoDbSettings()
@@ -67,6 +71,7 @@ namespace Catalog
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                // endpoints.MapHealthChecks("/health");
             });
         }
     }
